@@ -11,10 +11,6 @@ import java.util.List;
 @Repository
 public interface ChildRepository extends JpaRepository<Child,Integer> {
 
-    @Transactional
     List<Child> getChildrenByChildParent(Person person);
-
-    @Transactional
     void deleteAllByChildParent(Person person);
-
 }

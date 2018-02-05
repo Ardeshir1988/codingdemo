@@ -48,4 +48,10 @@ public class ChildRestController {
     {
         return childService.addNewChild(childName,childAge,childGender,childSchoolName,parentId);
     }
+    @ApiOperation(value = "View a list Of Children By ParentId")
+    @RequestMapping(value = "/getchildren",method = RequestMethod.GET)
+    public List<Child> getChildrenByParent(@RequestParam("parentid") int parentId)
+    {
+        return childService.getChildrenByParentId(parentId);
+    }
 }

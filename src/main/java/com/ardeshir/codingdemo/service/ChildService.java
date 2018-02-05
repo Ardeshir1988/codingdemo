@@ -46,4 +46,9 @@ public class ChildService {
         newChild.setChildParent(parent);
         return childRepository.saveAndFlush(newChild);
     }
+    public List<Child> getChildrenByParentId(int parentId)
+    {
+        Person parent=personRepository.findOne(parentId);
+        return childRepository.getChildrenByChildParent(parent);
+    }
 }

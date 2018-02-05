@@ -14,7 +14,6 @@ import java.util.List;
 @Repository
 public interface HouseRepository extends JpaRepository<House,Integer>{
 
-    @Transactional
     @Modifying(clearAutomatically = true)
     void deleteByHouseOwner(Person person);
 
