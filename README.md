@@ -1,4 +1,5 @@
-# this is spring boot example which it will be develop continuously
+# This is spring boot example
+# Will be develop continuously
 with these feature:<br />
 H2 Embedded Database (running anywhere just via JVM)<br />
 Tomcat embedded<br />
