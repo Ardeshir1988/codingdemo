@@ -1,5 +1,5 @@
 # This is spring boot example
-Will be develop continuously with these feature:<br />
+Will be develop continuously with these features:<br />
 H2 Embedded Database (running anywhere just via JVM)<br />
 Tomcat embedded<br />
 Jpa<br />
