@@ -18,7 +18,6 @@ import java.util.List;
 public class PersonRestController {
 
     private PersonService personService;
-
     @Autowired
     PersonRestController(PersonService personService)
     {
