@@ -1,15 +1,15 @@
 # this is spring boot example which it will be develop continuously
-with these feature:
-H2 Embedded Database (running anywhere just via JVM)
-Tomcat embedded
-Jpa
-Restful Web Services
-Thymeleaf
-Javascript
-Bootstrap
-Aop For Logging
-Exception Handling
-Memory Management
-Jpa Caching
-Swagger (documenting RESTful APIs on /swagger-ui.html)
-JUnit With Mockito
+with these feature:<br />
+H2 Embedded Database (running anywhere just via JVM)<br />
+Tomcat embedded<br />
+Jpa<br />
+Restful Web Services<br />
+Thymeleaf<br />
+Javascript<br />
+Bootstrap<br />
+Aop For Logging<br />
+Exception Handling<br />
+Memory Management<br />
+Jpa Caching<br />
+Swagger (documenting RESTful APIs on /swagger-ui.html)<br />
+JUnit With Mockito<br />
