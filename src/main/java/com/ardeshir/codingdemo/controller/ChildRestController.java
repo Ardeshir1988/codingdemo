@@ -4,6 +4,7 @@ import com.ardeshir.codingdemo.model.Child;
 import com.ardeshir.codingdemo.model.Person;
 import com.ardeshir.codingdemo.repository.ChildRepository;
 import com.ardeshir.codingdemo.repository.PersonRepository;
+import com.ardeshir.codingdemo.service.ChildService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,20 +17,18 @@ import java.util.List;
 @RequestMapping("/api/child")
 public class ChildRestController {
 
-    private ChildRepository childRepository;
-    private PersonRepository personRepository;
+    private ChildService childService;
 
     @Autowired
-    ChildRestController(ChildRepository childRepository,PersonRepository personRepository)
+    ChildRestController(ChildService childService)
     {
-        this.personRepository=personRepository;
-        this.childRepository=childRepository;
+        this.childService=childService;
     }
     @ApiOperation(value = "View a list Of Children")
     @RequestMapping(value = "/all",method = RequestMethod.GET)
     public List<Child> getAllChild()
     {
-        return childRepository.findAll();
+        return childService.getAllChildren();
     }
     @ApiOperation(value = "Update Child By ChildId")
     @RequestMapping(value = "/updatechild",method = RequestMethod.GET)
@@ -37,26 +36,16 @@ public class ChildRestController {
                                             @RequestParam(value = "age") int newChildAge,
                                             @RequestParam(value = "name") String newChildName)
     {
-        Child child=childRepository.findOne(childId);
-        child.setChildAge(newChildAge);
-        child.setChildName(newChildName);
-        return childRepository.saveAndFlush(child);
+        return childService.updateAgeAndNameChildById(childId,newChildAge,newChildName);
     }
     @ApiOperation(value = "Add Child")
     @RequestMapping(value = "/addchild",method = RequestMethod.GET)
-    public Child addNewPerson(@RequestParam("name") String name,
-                              @RequestParam("age") int age,
-                              @RequestParam("gender") String gender,
-                              @RequestParam("schoolname") String schoolname,
-                              @RequestParam("parentid") int parentid)
+    public Child addNewPerson(@RequestParam("name") String childName,
+                              @RequestParam("age") int childAge,
+                              @RequestParam("gender") String childGender,
+                              @RequestParam("schoolname") String childSchoolName,
+                              @RequestParam("parentid") int parentId)
     {
-        Child newChild=new Child();
-        newChild.setChildName(name);
-        newChild.setChildAge(age);
-        newChild.setChildGender(gender);
-        newChild.setChildSchoolName(schoolname);
-        Person parent=personRepository.findOne(parentid);
-        newChild.setChildParent(parent);
-        return childRepository.saveAndFlush(newChild);
+        return childService.addNewChild(childName,childAge,childGender,childSchoolName,parentId);
     }
 }

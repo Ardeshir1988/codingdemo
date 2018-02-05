@@ -13,7 +13,6 @@ import javax.transaction.Transactional;
 @Repository
 public interface PersonRepository extends JpaRepository<Person,Integer> {
 
-    @Transactional
     @Modifying(clearAutomatically = true)
     @Query("update Person p set p.personName=:name where p.personId=:pid")
     void updatename(@Param("name") String name,@Param("pid") Integer id);

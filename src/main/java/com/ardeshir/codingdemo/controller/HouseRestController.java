@@ -2,10 +2,7 @@ package com.ardeshir.codingdemo.controller;
 
 import com.ardeshir.codingdemo.model.House;
 import com.ardeshir.codingdemo.model.HouseType;
-import com.ardeshir.codingdemo.model.Person;
-import com.ardeshir.codingdemo.repository.CustomRepository;
-import com.ardeshir.codingdemo.repository.HouseRepository;
-import com.ardeshir.codingdemo.repository.PersonRepository;
+import com.ardeshir.codingdemo.service.HouseService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,50 +16,38 @@ import java.util.List;
 @RequestMapping("/api/house")
 public class HouseRestController {
 
-    private HouseRepository houseRepository;
-    private PersonRepository personRepository;
+    private HouseService houseService;
 
     @Autowired
-    HouseRestController(HouseRepository houseRepository, PersonRepository personRepository)
+    HouseRestController(HouseService houseService)
     {
-        this.houseRepository=houseRepository;
-        this.personRepository=personRepository;
+        this.houseService=houseService;
     }
     @ApiOperation(value = "View a list of Houses")
     @RequestMapping(value = "/all",method = RequestMethod.GET)
     public List<House> getAllHouses()
     {
-        return houseRepository.findAll();
+        return houseService.getAllHouses();
     }
 
     @ApiOperation(value = "Update House")
     @RequestMapping(value = "/updatehouse",method = RequestMethod.GET)
     public House updateHouses(
-                              @RequestParam("id")int id,
+                              @RequestParam("id")int houseId,
                               @RequestParam("housetype")HouseType houseType,
-                              @RequestParam("address")String address,
-                              @RequestParam("room")int room)
+                              @RequestParam("address")String houseAddress,
+                              @RequestParam("room")int houseQuantityrooms)
     {
-        House house=houseRepository.findOne(id);
-        house.setHouseType(houseType);
-        house.setHouseAddress(address);
-        house.setHouseRoom(room);
-        return houseRepository.saveAndFlush(house);
+        return houseService.updateHouses(houseId,houseType,houseAddress,houseQuantityrooms);
     }
 
     @ApiOperation(value = "Add House")
     @RequestMapping(value = "/addhouse",method = RequestMethod.GET)
     public House addHouses(@RequestParam("housetype")HouseType houseType,
-                              @RequestParam("address")String address,
-                              @RequestParam("room")int room,
+                              @RequestParam("address")String houseAddress,
+                              @RequestParam("room")int houseQuantityrooms,
                               @RequestParam("ownerid") int ownerId)
     {
-        House house=new House();
-        house.setHouseType(houseType);
-        house.setHouseAddress(address);
-        house.setHouseRoom(room);
-        Person owner=personRepository.findOne(ownerId);
-        house.setHouseOwner(owner);
-        return houseRepository.saveAndFlush(house);
+        return houseService.addHouses(houseType,houseAddress,houseQuantityrooms,ownerId);
     }
 }

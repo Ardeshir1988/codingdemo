@@ -1,11 +1,8 @@
 package com.ardeshir.codingdemo.controller;
 
 import com.ardeshir.codingdemo.model.Person;
-import com.ardeshir.codingdemo.repository.ChildRepository;
-import com.ardeshir.codingdemo.repository.CustomRepository;
-import com.ardeshir.codingdemo.repository.HouseRepository;
-import com.ardeshir.codingdemo.repository.PersonRepository;
 
+import com.ardeshir.codingdemo.service.PersonService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,61 +17,44 @@ import java.util.List;
 @RequestMapping("/api/person")
 public class PersonRestController {
 
-    private PersonRepository personRepository;
-    private HouseRepository houseRepository;
-    private CustomRepository customRepository;
-    private ChildRepository childRepository;
+    private PersonService personService;
 
     @Autowired
-    PersonRestController(PersonRepository personRepository,HouseRepository houseRepository,CustomRepository customRepository,ChildRepository childRepository)
+    PersonRestController(PersonService personService)
     {
-        this.personRepository=personRepository;
-        this.houseRepository=houseRepository;
-        this.customRepository = customRepository;
-        this.childRepository=childRepository;
+        this.personService=personService;
     }
 
     @ApiOperation(value = "View a list of People")
     @RequestMapping(value = "/all",method = RequestMethod.GET)
-    List<Person> getAllPersons()
+    List<Person> getAllPeople()
     {
-        return personRepository.findAll();
+        return personService.getAllPeople();
     }
     @ApiOperation(value = "Update Person Name By PersonId")
     @RequestMapping(value = "/updatename",method = RequestMethod.GET)
-    public Person updatePersonNameByPersonId(@RequestParam("id")Integer id,@RequestParam("name")String name)
+    public Person updatePersonNameByPersonId(@RequestParam("id")Integer personId,@RequestParam("name")String personName)
     {
-        personRepository.updatename(name,id);
-        return personRepository.findOne(id);
+        return personService.updatePersonNameByPersonId(personId,personName);
     }
     @ApiOperation(value = "Delete Person's House By PersonId")
     @RequestMapping(value = "/deletehouse",method = RequestMethod.GET)
-    public Person deleteHouseByPersonId(@RequestParam("id")Integer id)
+    public Person deleteHouseByPersonId(@RequestParam("id")Integer personId)
     {
-        Person person= personRepository.findOne(id);
-        houseRepository.deleteByHouseOwner(person);
-        customRepository.refresh(person);
-        return personRepository.findOne(person.getPersonId());
+        return personService.deleteHouseByPersonId(personId);
     }
     @ApiOperation(value = "Delete Children By ParentId")
     @RequestMapping(value = "/deletechildren",method = RequestMethod.GET)
-    public Person deleteChildrenByParentId(@RequestParam("id") int personId)
+    public Person deleteChildrenByParentId(@RequestParam("id") int parentId)
     {
-        Person person=new Person();
-        person.setPersonId(personId);
-        childRepository.deleteAllByChildParent(person);
-        return personRepository.findOne(personId);
+        return personService.deleteChildrenByParentId(parentId);
     }
     @ApiOperation(value = "Add Person")
     @RequestMapping(value = "/addperson",method = RequestMethod.GET)
-    public Person addNewPerson(@RequestParam("name") String name,
-                               @RequestParam("age") int age,
-                               @RequestParam("gender") String gender)
+    public Person addNewPerson(@RequestParam("name") String personName,
+                               @RequestParam("age") int personAge,
+                               @RequestParam("gender") String personGender)
     {
-        Person newPerson=new Person();
-        newPerson.setPersonName(name);
-        newPerson.setPersonAge(age);
-        newPerson.setPersonGender(gender);
-        return personRepository.saveAndFlush(newPerson);
+        return personService.addNewPerson(personName,personAge,personGender);
     }
 }
