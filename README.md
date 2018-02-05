@@ -11,5 +11,5 @@ Aop For Logging<br />
 Exception Handling<br />
 Memory Management<br />
 Jpa Caching<br />
-Swagger (documenting RESTful APIs on /swagger-ui.html)<br />
+Swagger (documenting RESTful APIs on "/swagger-ui.html")<br />
 JUnit With Mockito<br />
