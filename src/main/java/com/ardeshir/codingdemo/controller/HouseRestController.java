@@ -36,18 +36,18 @@ public class HouseRestController {
                               @RequestParam("id")int houseId,
                               @RequestParam("housetype")HouseType houseType,
                               @RequestParam("address")String houseAddress,
-                              @RequestParam("room")int houseQuantityrooms)
+                              @RequestParam("room")int houseQuantityRooms)
     {
-        return houseService.updateHouses(houseId,houseType,houseAddress,houseQuantityrooms);
+        return houseService.updateHouses(houseId,houseType,houseAddress,houseQuantityRooms);
     }
 
     @ApiOperation(value = "Add House")
     @RequestMapping(value = "/addhouse",method = RequestMethod.GET)
     public House addHouses(@RequestParam("housetype")HouseType houseType,
                               @RequestParam("address")String houseAddress,
-                              @RequestParam("room")int houseQuantityrooms,
+                              @RequestParam("room")int houseQuantityRooms,
                               @RequestParam("ownerid") int ownerId)
     {
-        return houseService.addHouses(houseType,houseAddress,houseQuantityrooms,ownerId);
+        return houseService.addHouses(houseType,houseAddress,houseQuantityRooms,ownerId);
     }
 }
