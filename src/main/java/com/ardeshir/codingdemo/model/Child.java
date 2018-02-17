@@ -1,14 +1,16 @@
 package com.ardeshir.codingdemo.model;
 
 
+import com.ardeshir.codingdemo.Logic.ChildSerializer;
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "child")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "childId")
+@JsonSerialize(using = ChildSerializer.class)
 public class Child implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,7 +27,6 @@ public class Child implements Serializable {
     @ManyToOne(fetch=FetchType.EAGER, optional=false)
     @JoinColumn(name = "child_parent_id")
     private Person childParent;
-
 
     public int getChildId() {
         return childId;

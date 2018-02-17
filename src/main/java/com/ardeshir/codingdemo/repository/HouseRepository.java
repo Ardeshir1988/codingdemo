@@ -16,5 +16,6 @@ public interface HouseRepository extends JpaRepository<House,Integer>{
 
     @Modifying(clearAutomatically = true)
     void deleteByHouseOwner(Person person);
+    House findByHouseOwner(Person person);
 
 }

@@ -18,12 +18,12 @@ import java.util.List;
 public class ChildRestController {
 
     private ChildService childService;
-
     @Autowired
     ChildRestController(ChildService childService)
     {
         this.childService=childService;
     }
+
     @ApiOperation(value = "View a list Of Children")
     @RequestMapping(value = "/all",method = RequestMethod.GET)
     public List<Child> getAllChild()
@@ -40,7 +40,7 @@ public class ChildRestController {
     }
     @ApiOperation(value = "Add Child")
     @RequestMapping(value = "/addchild",method = RequestMethod.GET)
-    public Child addNewPerson(@RequestParam("name") String childName,
+    public Child addNewChild(@RequestParam("name") String childName,
                               @RequestParam("age") int childAge,
                               @RequestParam("gender") String childGender,
                               @RequestParam("schoolname") String childSchoolName,
