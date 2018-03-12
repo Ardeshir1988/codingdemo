@@ -22,8 +22,8 @@ public class HouseRepositoryTest {
     public void deleteHouse()
     {
         Person person=personRepository.findByPersonName("Mariel");
-        assertNotNull(houseRepository.findByHouseOwner(person));
+        assertNotNull(houseRepository.findByHouseOwnerId(person.getPersonId()));
         houseRepository.deleteByHouseOwner(person);
-        assertNull(houseRepository.findByHouseOwner(person));
+        assertNull(houseRepository.findByHouseOwnerId(person.getPersonId()));
     }
 }
