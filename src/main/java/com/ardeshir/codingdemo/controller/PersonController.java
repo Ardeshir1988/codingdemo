@@ -30,8 +30,6 @@ public class PersonController {
     @GetMapping("/people")
     public String getAllPeople(Model model)
     {
-//        House house=new House();
-//        model.addAttribute("house",house);
         model.addAttribute("people",personService.getAllPeople());
         return "person-page";
     }
