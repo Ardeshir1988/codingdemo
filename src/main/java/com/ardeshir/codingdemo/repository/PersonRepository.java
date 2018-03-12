@@ -17,5 +17,10 @@ public interface PersonRepository extends JpaRepository<Person,Integer> {
     @Query("update Person p set p.personName=:name where p.personId=:pid")
     void updatename(@Param("name") String name,@Param("pid") Integer id);
 
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query("update Person p set p.personName=:name,p.personGender=:gender,p.personAge=:age  where p.personId=:pid")
+    void updatePerson(@Param("name") String name,@Param("gender") String gender,@Param("age") int age,@Param("pid") Integer id);
+
     Person findByPersonName(String name);
 }

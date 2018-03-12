@@ -36,10 +36,7 @@ public class HouseService {
         house.setHouseRoom(room);
         return houseRepository.saveAndFlush(house);
     }
-    public House addHouses(@RequestParam("housetype")HouseType houseType,
-                           @RequestParam("address")String address,
-                           @RequestParam("room")int room,
-                           @RequestParam("ownerid") int ownerId)
+    public House addHouses(HouseType houseType, String address, int room, int ownerId)
     {
         House house=new House();
         house.setHouseType(houseType);
@@ -48,5 +45,9 @@ public class HouseService {
         Person owner=personRepository.findOne(ownerId);
         house.setHouseOwner(owner);
         return houseRepository.saveAndFlush(house);
+    }
+    public House findHouseByPersonId(int personId)
+    {
+        return houseRepository.findByHouseOwnerId(personId);
     }
 }

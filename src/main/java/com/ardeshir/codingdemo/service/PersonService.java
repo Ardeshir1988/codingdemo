@@ -65,4 +65,16 @@ public class PersonService {
         newPerson.setPersonGender(gender);
         return personRepository.saveAndFlush(newPerson);
     }
+    public String updatePerson(Person editedPerson)
+    {
+        Person person=personRepository.findOne(editedPerson.getPersonId());
+        person.setPersonGender(editedPerson.getPersonGender());
+        person.setPersonName(editedPerson.getPersonName());
+        person.setPersonAge(editedPerson.getPersonAge());
+        return "edited";
+    }
+    public Person getPersonByName(String personName)
+    {
+        return personRepository.findByPersonName(personName);
+    }
 }
