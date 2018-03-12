@@ -4,7 +4,7 @@ insert into person (person_id, person_name, person_gender, person_age) values (1
 insert into person (person_id, person_name, person_gender, person_age) values (2, 'Cicely', 'Female', 71);
 insert into person (person_id, person_name, person_gender, person_age) values (3, 'Sigismondo', 'Male', 30);
 insert into person (person_id, person_name, person_gender, person_age) values (4, 'Cloe', 'Female', 37);
-insert into person (person_id, person_name, person_gender, person_age) values (5, 'Scarface', 'Male', 55);
+insert into person (person_id, person_name, person_gender, person_age) values (5, 'Jack', 'Male', 55);
 
 
 
