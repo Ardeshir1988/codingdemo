@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" >Demo</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/}" href="home-page.html" th:text="Home"/></li>
+                <li><a th:href="@{/people}" href="person-page.html" th:text="People"/></li>
+                <li><a th:href="@{/houses}" href="house-page.html" th:text="Houses"/></li>
+                <li><a th:href="@{/children}" href="child-page.html" th:text="Children"/> </li>
+                <li><a  href="swagger-ui.html" th:text="APIs-Documentation"/> </li>
+            </ul>
+        </div>
+    </nav>
+    <h3>SpringBoot<br /></h3>
+    <p style="font-style:initial">
+        <br />
+        UI Panel Uses Thymeleaf , Javascript , Bootstrap , Html<br /><br />
+        RESTful Web Service Uses Spring REST , Swagger For Documentation<br /><br />
+        Data Persistence Uses H2 Embedded Database , Spring Jpa Data<br /><br />
+        Testing Uses Junit , Mockito , Hamcrest<br/><br />
+        Packaging , Dependency Management Uses Maven<br/><br />
+    </p>
+</div>
+
+
+
+</body>
+</html>

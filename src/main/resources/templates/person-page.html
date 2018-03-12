@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" >Demo</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/}" href="home-page.html" th:text="Home"/></li>
+                <li><a th:href="@{/people}" href="person-page.html" th:text="People"/></li>
+                <li><a th:href="@{/houses}" href="house-page.html" th:text="Houses"/></li>
+                <li><a th:href="@{/children}" href="child-page.html" th:text="Children"/> </li>
+                <li><a  href="swagger-ui.html" th:text="APIs-Documentation"/> </li>
+            </ul>
+        </div>
+    </nav>
+    <h1>People</h1><br/>
+
+    <form  class="form-horizontal">
+
+        <div class="form-group">
+            <label th:text="FindByName" class="col-sm-2 control-label"></label>
+            <div class="col-sm-4">
+                <input class="form-control" id="search" placeholder="PersonName"/>
+            </div>
+            <div class="col-sm-3">
+                <button type="button" class="btn btn-default btn-sm" onclick="personSearch()">Search</button>
+            </div>
+            <div align="right">
+            <button type="button"  class="btn btn-primary"   data-toggle="modal" data-target="#addpersonmodal">AddPerson</button>
+            </div>
+        </div>
+
+    </form>
+    <table class="table table-hover" id="tblperson"   th:fragment="personfrg">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>House</th>
+            <th>Child</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="person : ${people}" >
+            <td class="person-id" th:text="${person.personId}"/>
+            <td class="person-name" th:text="${person.personName}"/>
+            <td class="person-gender" th:text="${person.personGender}"/>
+            <td class="person-age" th:text="${person.personAge}"/>
+            <td>
+                <button type="button"  class="btn btn-info"   data-toggle="modal" data-target="#housemodal" onclick="findHouse(this)">ShowHouse</button>
+            </td>
+            <td>
+                <button type="button"  class="btn btn-info"   data-toggle="modal" data-target="#childmodal" onclick="findChildren(this)">ShowChild</button>
+            </td>
+            <td>
+                <button type="button"  class="btn btn-success"   data-toggle="modal" data-target="#editmodal" onclick="retriveDateforEditModal(this)">Edit</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+
+
+<div class="modal fade" id="addpersonmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" >Add Person</h4>
+            </div>
+
+
+            <div class="modal-body" id="personinfo" >
+                <form id="addpersonform"  action="#" th:action="@{/addperson}"  th:object="${person}" method="post" class="form-horizontal">
+                    <div class="form-group">
+                        <label th:text="PersonName" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <input type="text" name="personName"  class="form-control"     />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label th:text="PersonGender" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <select class="form-control btn btn-default"  name="personGender"  required="required">
+                                <option th:value="0">SelectGender</option>
+                                <option th:value="Male">Male</option>
+                                <option th:value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label th:text="personAge" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <input type="number" name="personAge" class="form-control" />
+                        </div>
+                    </div>
+
+
+                    <input type="submit" value="Add" class="btn btn-primary" />
+                </form>
+            </div>
+
+
+            <div class="modal-footer" align="center">
+                <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="housemodal"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" >House Information</h4>
+            </div>
+            <div class="modal-body" id="house-info" th:fragment="personhousefrg" >
+                <span th:text="'HouseId:       '+${house?.houseId}" >null</span><br/>
+                <span th:text="'HouseType:       '+${house?.houseType}" >null</span><br/>
+                <span th:text="'HouseRoom:       '+${house?.houseRoom}" >null</span><br/>
+                <span th:text="'HouseAddress:       '+${house?.houseAddress}" >null</span><br/>
+            </div>
+
+
+            <div class="modal-footer" align="center">
+                <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="childmodal" tabindex="-1" role="dialog"  aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" >Child Information</h4>
+            </div>
+            <div class="modal-body">
+
+                <table class="table table-hover" id="tblchildren"   th:fragment="personchildrenfrg">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                        <th>SchoolName</th>
+                        <th>ParentName</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="child : ${children}" >
+                        <td th:text="${child.childId}"/>
+                        <td th:text="${child.childName}"/>
+                        <td th:text="${child.childGender}"/>
+                        <td th:text="${child.childAge}"/>
+                        <td th:text="${child.childSchoolName}"/>
+                        <td th:text="${child.childParent.personName}"/>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="modal-footer" align="center">
+                <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" >Edit Person</h4>
+            </div>
+            <div class="modal-body" th:fragment="editpersonfrg" >
+                <form id="editpersonform"  action="#" th:action="@{/editperson}"  th:object="${person}" method="post" class="form-horizontal">
+                    <div class="form-group">
+                        <label th:text="PersonName" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <input type="hidden" name="personId"  class="form-control"  id="person-id"   />
+                            <input type="text" name="personName"  class="form-control"  id="person-name"   />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label th:text="PersonGender" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <select class="form-control btn btn-default"  name="personGender"  required="required" id="person-gender">
+                                <option th:value="0">SelectGender</option>
+                                <option th:value="Male">Male</option>
+                                <option th:value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label th:text="personAge" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <input type="number" name="personAge" class="form-control" id="person-age"/>
+                        </div>
+                    </div>
+
+
+                    <input type="submit" value="Edit" class="btn btn-primary" />
+                </form>
+            </div>
+
+
+            <div class="modal-footer" align="center">
+                <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script>
+    function personSearch() {
+        var url = '/findperson?name='+document.getElementById("search").value;
+        $("#tblperson").load(url);
+    }
+    function retriveDateforEditModal(a) {
+        var $row = $(a).closest("tr");
+        document.getElementById("person-id").value = $row.find(".person-id").text();
+        document.getElementById("person-name").value = $row.find(".person-name").text();
+        document.getElementById("person-gender").value = $row.find(".person-gender").text();
+        document.getElementById("person-age").value = $row.find(".person-age").text();
+    }
+    function findHouse(a) {
+        var $row = $(a).closest("tr");
+        var url = '/findhousebypersonid?personid='+$row.find(".person-id").text();
+        $("#house-info").load(url);
+    }
+    function findChildren(a) {
+        var $row = $(a).closest("tr");
+        var url = '/findchildrenbyparentid?personid='+$row.find(".person-id").text();
+        $("#tblchildren").load(url);
+    }
+</script>
+</html>
