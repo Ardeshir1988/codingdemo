@@ -4,9 +4,7 @@ import com.ardeshir.codingdemo.model.House;
 import com.ardeshir.codingdemo.model.Person;
 import com.ardeshir.codingdemo.repository.ChildRepository;
 import com.ardeshir.codingdemo.repository.PersonRepository;
-import com.ardeshir.codingdemo.service.ChildService;
-import com.ardeshir.codingdemo.service.HouseService;
-import com.ardeshir.codingdemo.service.PersonService;
+import com.ardeshir.codingdemo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +15,11 @@ import java.util.List;
 @Controller
 public class PersonController {
 
-    private PersonService personService;
-    private ChildService childService;
-    private HouseService houseService;
+    private IPersonService personService;
+    private IChildService childService;
+    private IHouseService houseService;
     @Autowired
-    PersonController(PersonService personService, ChildService childService, HouseService houseService)
+    PersonController(IPersonService personService, IChildService childService, IHouseService houseService)
     {
         this.personService=personService;
         this.childService=childService;

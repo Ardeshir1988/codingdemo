@@ -1,25 +1,20 @@
 package com.ardeshir.codingdemo.controller;
 
 import com.ardeshir.codingdemo.model.Child;
-import com.ardeshir.codingdemo.model.Person;
-import com.ardeshir.codingdemo.repository.ChildRepository;
-import com.ardeshir.codingdemo.repository.PersonRepository;
-import com.ardeshir.codingdemo.service.ChildService;
+import com.ardeshir.codingdemo.service.IChildService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/child")
 public class ChildRestController {
 
-    private ChildService childService;
+    private IChildService childService;
     @Autowired
-    ChildRestController(ChildService childService)
+    ChildRestController(IChildService childService)
     {
         this.childService=childService;
     }

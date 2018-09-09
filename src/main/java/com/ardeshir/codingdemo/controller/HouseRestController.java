@@ -2,7 +2,7 @@ package com.ardeshir.codingdemo.controller;
 
 import com.ardeshir.codingdemo.model.House;
 import com.ardeshir.codingdemo.model.HouseType;
-import com.ardeshir.codingdemo.service.HouseService;
+import com.ardeshir.codingdemo.service.IHouseService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +16,10 @@ import java.util.List;
 @RequestMapping("/api/house")
 public class HouseRestController {
 
-    private HouseService houseService;
+    private IHouseService houseService;
 
     @Autowired
-    HouseRestController(HouseService houseService)
+    HouseRestController(IHouseService houseService)
     {
         this.houseService=houseService;
     }

@@ -2,7 +2,7 @@ package com.ardeshir.codingdemo.controller;
 
 import com.ardeshir.codingdemo.model.Person;
 
-import com.ardeshir.codingdemo.service.PersonService;
+import com.ardeshir.codingdemo.service.IPersonService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +17,9 @@ import java.util.List;
 @RequestMapping("/api/person")
 public class PersonRestController {
 
-    private PersonService personService;
+    private IPersonService personService;
     @Autowired
-    PersonRestController(PersonService personService)
+    PersonRestController(IPersonService personService)
     {
         this.personService=personService;
     }
