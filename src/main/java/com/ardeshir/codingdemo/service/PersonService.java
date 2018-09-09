@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class PersonService {
+public class PersonService implements IPersonService{
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -32,17 +32,18 @@ public class PersonService {
         this.houseRepository=houseRepository;
         this.childRepository=childRepository;
     }
-
+    @Override
     public List<Person> getAllPeople()
     {
         return personRepository.findAll();
     }
+    @Override
     public Person updatePersonNameByPersonId(Integer id,String name)
     {
         personRepository.updatename(name,id);
         return personRepository.findOne(id);
     }
-
+    @Override
     public Person deleteHouseByPersonId(Integer id)
     {
         Person person= personRepository.findOne(id);
@@ -50,6 +51,7 @@ public class PersonService {
         entityManager.refresh(person);
         return personRepository.findOne(person.getPersonId());
     }
+    @Override
     public Person deleteChildrenByParentId(int personId)
     {
         Person person=new Person();
@@ -57,6 +59,7 @@ public class PersonService {
         childRepository.deleteAllByChildParent(person);
         return personRepository.findOne(personId);
     }
+    @Override
     public Person addNewPerson( String name, int age, String gender)
     {
         Person newPerson=new Person();
@@ -65,6 +68,7 @@ public class PersonService {
         newPerson.setPersonGender(gender);
         return personRepository.saveAndFlush(newPerson);
     }
+    @Override
     public String updatePerson(Person editedPerson)
     {
         Person person=personRepository.findOne(editedPerson.getPersonId());
@@ -73,6 +77,7 @@ public class PersonService {
         person.setPersonAge(editedPerson.getPersonAge());
         return "edited";
     }
+    @Override
     public Person getPersonByName(String personName)
     {
         return personRepository.findByPersonName(personName);

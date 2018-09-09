@@ -14,7 +14,7 @@ import java.util.List;
 
 @Transactional
 @Service
-public class HouseService {
+public class HouseService implements IHouseService{
 
     private HouseRepository houseRepository;
     private PersonRepository personRepository;
@@ -24,10 +24,12 @@ public class HouseService {
         this.houseRepository=houseRepository;
         this.personRepository=personRepository;
     }
+    @Override
     public List<House> getAllHouses()
     {
         return houseRepository.findAll();
     }
+    @Override
     public House updateHouses(int id, HouseType houseType, String address, int room)
     {
         House house=houseRepository.findOne(id);
@@ -36,6 +38,7 @@ public class HouseService {
         house.setHouseRoom(room);
         return houseRepository.saveAndFlush(house);
     }
+    @Override
     public House addHouses(HouseType houseType, String address, int room, int ownerId)
     {
         House house=new House();
@@ -46,6 +49,7 @@ public class HouseService {
         house.setHouseOwner(owner);
         return houseRepository.saveAndFlush(house);
     }
+    @Override
     public House findHouseByPersonId(int personId)
     {
         return houseRepository.findByHouseOwnerId(personId);

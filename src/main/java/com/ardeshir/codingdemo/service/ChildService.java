@@ -12,7 +12,7 @@ import java.util.List;
 
 @Transactional
 @Service
-public class ChildService {
+public class ChildService implements IChildService {
 
     private PersonRepository personRepository;
     private ChildRepository childRepository;
@@ -23,11 +23,12 @@ public class ChildService {
         this.personRepository=personRepository;
         this.childRepository=childRepository;
     }
-
+    @Override
     public List<Child> getAllChildren()
     {
         return childRepository.findAll();
     }
+    @Override
     public Child updateAgeAndNameChildById(  int childId, int newChildAge, String newChildName)
     {
         Child child=childRepository.findOne(childId);
@@ -35,6 +36,7 @@ public class ChildService {
         child.setChildName(newChildName);
         return childRepository.saveAndFlush(child);
     }
+    @Override
     public Child addNewChild( String name, int age, String gender, String schoolname, int parentid)
     {
         Child newChild=new Child();
@@ -46,6 +48,7 @@ public class ChildService {
         newChild.setChildParent(parent);
         return childRepository.saveAndFlush(newChild);
     }
+    @Override
     public List<Child> getChildrenByParentId(int parentId)
     {
         Person parent=personRepository.findOne(parentId);
