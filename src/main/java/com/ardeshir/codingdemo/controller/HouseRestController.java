@@ -31,7 +31,7 @@ public class HouseRestController {
     }
 
     @ApiOperation(value = "Update House")
-    @RequestMapping(value = "/updatehouse",method = RequestMethod.GET)
+    @RequestMapping(value = "/updatehouse",method = RequestMethod.POST)
     public House updateHouses(
                               @RequestParam("id")int houseId,
                               @RequestParam("housetype")HouseType houseType,
@@ -42,11 +42,11 @@ public class HouseRestController {
     }
 
     @ApiOperation(value = "Add House")
-    @RequestMapping(value = "/addhouse",method = RequestMethod.GET)
+    @RequestMapping(value = "/addhouse",method = RequestMethod.PUT)
     public House addHouses(@RequestParam("housetype")HouseType houseType,
                               @RequestParam("address")String houseAddress,
                               @RequestParam("room")int houseQuantityRooms,
-                              @RequestParam("ownerid") int ownerId)
+                              @RequestParam("personid") int ownerId)
     {
         return houseService.addHouses(houseType,houseAddress,houseQuantityRooms,ownerId);
     }

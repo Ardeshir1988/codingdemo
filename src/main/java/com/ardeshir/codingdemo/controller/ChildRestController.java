@@ -26,26 +26,26 @@ public class ChildRestController {
         return childService.getAllChildren();
     }
     @ApiOperation(value = "Update Child By ChildId")
-    @RequestMapping(value = "/updatechild",method = RequestMethod.GET)
+    @RequestMapping(value = "/updatechild",method = RequestMethod.POST)
     public Child updateAgeAndNameChildById( @RequestParam(value = "id") int childId,
-                                            @RequestParam(value = "age") int newChildAge,
-                                            @RequestParam(value = "name") String newChildName)
+                                            @RequestParam(value = "newAge") int newChildAge,
+                                            @RequestParam(value = "newName") String newChildName)
     {
         return childService.updateAgeAndNameChildById(childId,newChildAge,newChildName);
     }
     @ApiOperation(value = "Add Child")
-    @RequestMapping(value = "/addchild",method = RequestMethod.GET)
+    @RequestMapping(value = "/addchild",method = RequestMethod.PUT)
     public Child addNewChild(@RequestParam("name") String childName,
                               @RequestParam("age") int childAge,
                               @RequestParam("gender") String childGender,
                               @RequestParam("schoolname") String childSchoolName,
-                              @RequestParam("parentid") int parentId)
+                              @RequestParam("personid") int parentId)
     {
         return childService.addNewChild(childName,childAge,childGender,childSchoolName,parentId);
     }
     @ApiOperation(value = "View a list Of Children By ParentId")
     @RequestMapping(value = "/getchildren",method = RequestMethod.GET)
-    public List<Child> getChildrenByParent(@RequestParam("parentid") int parentId)
+    public List<Child> getChildrenByParent(@RequestParam("personid") int parentId)
     {
         return childService.getChildrenByParentId(parentId);
     }

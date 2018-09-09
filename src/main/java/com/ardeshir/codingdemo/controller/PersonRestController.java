@@ -31,25 +31,25 @@ public class PersonRestController {
         return personService.getAllPeople();
     }
     @ApiOperation(value = "Update Person Name By PersonId")
-    @RequestMapping(value = "/updatename",method = RequestMethod.GET)
-    public Person updatePersonNameByPersonId(@RequestParam("id")Integer personId,@RequestParam("name")String personName)
+    @RequestMapping(value = "/updatename",method = RequestMethod.POST)
+    public Person updatePersonNameByPersonId(@RequestParam("personid")Integer personId,@RequestParam("newName")String personName)
     {
         return personService.updatePersonNameByPersonId(personId,personName);
     }
     @ApiOperation(value = "Delete Person's House By PersonId")
-    @RequestMapping(value = "/deletehouse",method = RequestMethod.GET)
-    public Person deleteHouseByPersonId(@RequestParam("id")Integer personId)
+    @RequestMapping(value = "/deletehouse",method = RequestMethod.DELETE)
+    public Person deleteHouseByPersonId(@RequestParam("personid")Integer personId)
     {
         return personService.deleteHouseByPersonId(personId);
     }
     @ApiOperation(value = "Delete Children By ParentId")
-    @RequestMapping(value = "/deletechildren",method = RequestMethod.GET)
-    public Person deleteChildrenByParentId(@RequestParam("id") int parentId)
+    @RequestMapping(value = "/deletechildren",method = RequestMethod.DELETE)
+    public Person deleteChildrenByParentId(@RequestParam("personid") int parentId)
     {
         return personService.deleteChildrenByParentId(parentId);
     }
     @ApiOperation(value = "Add Person")
-    @RequestMapping(value = "/addperson",method = RequestMethod.GET)
+    @RequestMapping(value = "/addperson",method = RequestMethod.PUT)
     public Person addNewPerson(@RequestParam("name") String personName,
                                @RequestParam("age") int personAge,
                                @RequestParam("gender") String personGender)
